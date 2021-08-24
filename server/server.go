@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,11 +15,12 @@ type Server struct {
 }
 
 // NewServer is the constructor for the server
-func NewServer() *Server {
+func NewServer(host, port string) *Server {
 	r := NewRouter()
 
+	addr := fmt.Sprintf("%s:%s", host, port)
 	app := &http.Server{
-		Addr:    ":3000",
+		Addr:    addr,
 		Handler: r,
 	}
 
