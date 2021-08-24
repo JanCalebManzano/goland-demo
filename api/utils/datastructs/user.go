@@ -6,7 +6,7 @@ import (
 
 // User is the data structure for users
 type User struct {
-	ID           string     `json:"id,omitempty"`
+	ID           int64      `json:"id,omitempty"`
 	Username     string     `json:"username,omitempty"`
 	FullName     string     `json:"full_name,omitempty"`
 	MobileNumber string     `json:"mobile_number,omitempty"`
