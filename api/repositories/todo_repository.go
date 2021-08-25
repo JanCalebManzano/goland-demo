@@ -13,7 +13,7 @@ func NewTodoRepository() (repo *TodoRepository, err error) {
 	return repo, nil
 }
 
-func (repo *UserRepository) GetTodos() (todos []*datastructs.Todo, err error) {
+func (repo *TodoRepository) GetTodos() (todos []*datastructs.Todo, err error) {
 	return []*datastructs.Todo{{
 		ID:          0,
 		UserID:      0,
@@ -24,7 +24,7 @@ func (repo *UserRepository) GetTodos() (todos []*datastructs.Todo, err error) {
 	}}, nil
 }
 
-func (repo *UserRepository) GetTodo() (todo *datastructs.Todo, err error) {
+func (repo *TodoRepository) GetTodo() (todo *datastructs.Todo, err error) {
 	return &datastructs.Todo{
 		ID:          0,
 		UserID:      0,
