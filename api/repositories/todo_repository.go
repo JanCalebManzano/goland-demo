@@ -7,6 +7,12 @@ import (
 // TodoRepository is the repository for todos
 type TodoRepository struct{}
 
+// NewTodoRepository is the constructor for the TodoRepository struct
+func NewTodoRepository() (repo *TodoRepository, err error) {
+	repo = &TodoRepository{}
+	return repo, nil
+}
+
 func (repo *UserRepository) GetTodos() (todos []*datastructs.Todo, err error) {
 	return []*datastructs.Todo{{
 		ID:          0,

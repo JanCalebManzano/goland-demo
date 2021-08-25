@@ -7,6 +7,12 @@ import (
 // UserRepository is the repository for users
 type UserRepository struct{}
 
+// NewUserRepository is the constructor for the UserRepository struct
+func NewUserRepository() (repo *UserRepository, err error) {
+	repo = &UserRepository{}
+	return repo, nil
+}
+
 func (repo *UserRepository) GetUsers() (users []*datastructs.User, err error) {
 	return []*datastructs.User{{
 		ID:           0,
