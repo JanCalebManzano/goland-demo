@@ -21,22 +21,26 @@ func NewUserController() (ctrl *UserController, err error) {
 	return ctrl, nil
 }
 
-func (ctrl *UserController) GetUsers(c *gin.Context) {
-	res, err := ctrl.srv.GetUsers()
-	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
-		return
-	}
+func (ctrl *UserController) GetUsers() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		res, err := ctrl.srv.GetUsers()
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
 
-	c.JSON(http.StatusOK, res)
+		c.JSON(http.StatusOK, res)
+	}
 }
 
-func (ctrl *UserController) GetUser(c *gin.Context) {
-	res, err := ctrl.srv.GetUser()
-	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
-		return
-	}
+func (ctrl *UserController) GetUser() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		res, err := ctrl.srv.GetUser()
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
 
-	c.JSON(http.StatusOK, res)
+		c.JSON(http.StatusOK, res)
+	}
 }

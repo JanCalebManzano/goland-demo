@@ -21,22 +21,26 @@ func NewTodoController() (ctrl *TodoController, err error) {
 	return ctrl, nil
 }
 
-func (ctrl *TodoController) GetTodos(c *gin.Context) {
-	res, err := ctrl.srv.GetTodos()
-	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
-		return
-	}
+func (ctrl *TodoController) GetTodos() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		res, err := ctrl.srv.GetTodos()
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
 
-	c.JSON(http.StatusOK, res)
+		c.JSON(http.StatusOK, res)
+	}
 }
 
-func (ctrl *TodoController) GetTodo(c *gin.Context) {
-	res, err := ctrl.srv.GetTodo()
-	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
-		return
-	}
+func (ctrl *TodoController) GetTodo() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		res, err := ctrl.srv.GetTodo()
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
 
-	c.JSON(http.StatusOK, res)
+		c.JSON(http.StatusOK, res)
+	}
 }
