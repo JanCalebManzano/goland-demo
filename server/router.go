@@ -22,7 +22,7 @@ func NewRouter() (r *gin.Engine) {
 	}
 	userRtr := r.Group("/users")
 	userRtr.GET("", userCtrl.GetUsers())
-	userRtr.GET("/0", userCtrl.GetUser())
+	userRtr.GET("/:id", userCtrl.GetUser())
 
 	todoCtrl, err := controllers.NewTodoController()
 	if err != nil {
@@ -30,7 +30,7 @@ func NewRouter() (r *gin.Engine) {
 	}
 	todoRtr := r.Group("/todos")
 	todoRtr.GET("", todoCtrl.GetTodos())
-	todoRtr.GET("/0", todoCtrl.GetTodo())
+	todoRtr.GET("/:id", todoCtrl.GetTodo())
 
 	return r
 }

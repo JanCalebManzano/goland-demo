@@ -23,7 +23,7 @@ func NewUserController() (ctrl *UserController, err error) {
 
 func (ctrl *UserController) GetUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		res, err := ctrl.srv.GetUsers()
+		res, err := ctrl.srv.GetUsers(c)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, err)
 			return
@@ -35,9 +35,10 @@ func (ctrl *UserController) GetUsers() gin.HandlerFunc {
 
 func (ctrl *UserController) GetUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		res, err := ctrl.srv.GetUser()
+		id := c.Param("id")
+		res, err := ctrl.srv.GetUser(c, id)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, err)
+			c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 			return
 		}
 

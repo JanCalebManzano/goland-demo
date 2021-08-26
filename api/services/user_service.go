@@ -1,8 +1,12 @@
 package services
 
 import (
+	"fmt"
 	"goland-demo/api/repositories"
 	"goland-demo/api/utils/datastructs"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 // UserService is the service for users
@@ -22,10 +26,15 @@ func NewUserService() (srv *UserService, err error) {
 	return srv, nil
 }
 
-func (srv *UserService) GetUsers() (users []*datastructs.User, err error) {
-	return srv.repo.GetUsers()
+func (srv *UserService) GetUsers(c *gin.Context) (users []*datastructs.User, err error) {
+	return srv.repo.GetUsers(c)
 }
 
-func (srv *UserService) GetUser() (users *datastructs.User, err error) {
-	return srv.repo.GetUser()
+func (srv *UserService) GetUser(c *gin.Context, sid string) (users *datastructs.User, err error) {
+	id, err := strconv.Atoi(sid)
+	if err != nil {
+		return nil, fmt.Errorf("Param with key 'id' should be an integer. ")
+	}
+
+	return srv.repo.GetUser(c, int32(id))
 }
