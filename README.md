@@ -5,4 +5,6 @@ This is a Go project for GoLand demonstration.
 - Git
 - Docker
 - Databases
+- Tests
 - Swagger
+- HTTP Client
