@@ -16,21 +16,25 @@ func NewRouter() (r *gin.Engine) {
 	r.Use(cors())
 	r.Use(jsonify())
 
-	userCtrl, err := controllers.NewUserController()
-	if err != nil {
-		log.Fatalln(err)
+	{
+		userCtrl, err := controllers.NewUserController()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		userRtr := r.Group("/users")
+		userRtr.GET("", userCtrl.GetUsers())
+		userRtr.GET("/:id", userCtrl.GetUser())
 	}
-	userRtr := r.Group("/users")
-	userRtr.GET("", userCtrl.GetUsers())
-	userRtr.GET("/:id", userCtrl.GetUser())
 
-	todoCtrl, err := controllers.NewTodoController()
-	if err != nil {
-		log.Fatalln(err)
+	{
+		todoCtrl, err := controllers.NewTodoController()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		todoRtr := r.Group("/todos")
+		todoRtr.GET("", todoCtrl.GetTodos())
+		todoRtr.GET("/:id", todoCtrl.GetTodo())
 	}
-	todoRtr := r.Group("/todos")
-	todoRtr.GET("", todoCtrl.GetTodos())
-	todoRtr.GET("/:id", todoCtrl.GetTodo())
 
 	return r
 }
