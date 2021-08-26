@@ -1,0 +1,124 @@
+swagger: "2.0"
+info:
+  title: "GoLand Demo App"
+  description: "API documentation for GoLand Demo App"
+  version: "1.0.0"
+  contact:
+    email: "webmaster@cafe24corp.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: "users"
+  - name: "todos"
+consumes:
+  - application/json
+produces:
+  - application/json
+
+schemes:
+  - http
+host: localhost:8080
+basePath: /
+
+paths:
+  # users
+  /users:
+    get:
+      tags:
+        - "users"
+      summary: "Get all users"
+      operationId: get_users
+      responses:
+        "200":
+          description: "Success response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+  /users/{id}:
+    get:
+      tags:
+        - "users"
+      summary: "Get user with ID"
+      operationId: get_user
+      parameters:
+        - $ref: "#/parameters/IDPathParam"
+      responses:
+        "200":
+          description: "Success response"
+          schema:
+            $ref: "#/definitions/User"
+
+  # todos
+  /todos:
+    get:
+      tags:
+        - "todos"
+      summary: "Get all todos"
+      operationId: get_todos
+      responses:
+        "200":
+          description: "Success response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Todo"
+  /todos/{id}:
+    get:
+      tags:
+        - "todos"
+      summary: "Get todo with ID"
+      operationId: get_todo
+      parameters:
+        - $ref: "#/parameters/IDPathParam"
+      responses:
+        "200":
+          description: "Success response"
+          schema:
+            $ref: "#/definitions/Todo"
+
+parameters:
+  IDPathParam:
+    in: path
+    name: id
+    required: true
+    type: string
+    description: The ID
+
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      username:
+        type: "string"
+      full_name:
+        type: "string"
+      mobile_number:
+        type: "string"
+      email_address:
+        type: "string"
+      created_at:
+        type: "string"
+        format: "date-time"
+      is_active:
+        type: "boolean"
+
+  Todo:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      user_id:
+        type: "integer"
+      content:
+        type: "string"
+      is_completed:
+        type: "boolean"
+      created_at:
+        type: "string"
+        format: "date-time"
+      is_active:
+        type: "boolean"
