@@ -16,6 +16,10 @@ func NewRouter() (r *gin.Engine) {
 	r.Use(cors())
 	r.Use(jsonify())
 
+	// DOCS
+	r.GET("/swagger.yaml", swagger())
+	r.GET("/docs", docs())
+
 	{
 		userCtrl, err := controllers.NewUserController()
 		if err != nil {

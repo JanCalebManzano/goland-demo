@@ -2,9 +2,12 @@ package server
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
+
+	"github.com/go-openapi/runtime/middleware"
+
+	"github.com/gin-gonic/gin"
 )
 
 func cors() gin.HandlerFunc {
@@ -47,13 +50,10 @@ func logger() gin.HandlerFunc {
 }
 
 func swagger() gin.HandlerFunc {
-	return func(context *gin.Context) {
-
-	}
+	return gin.WrapH(http.FileServer(http.Dir("./")))
 }
 
-func docs(path string) gin.HandlerFunc {
-	return func(context *gin.Context) {
-
-	}
+func docs() gin.HandlerFunc {
+	opts := middleware.RedocOpts{SpecURL: "/swagger.yaml", Path: "/docs"}
+	return gin.WrapH(middleware.Redoc(opts, nil))
 }
